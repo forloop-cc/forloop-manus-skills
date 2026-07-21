@@ -1,8 +1,15 @@
-# ForLoop Manus Skill
+
+<div align="center">
+
+## ForLoop Manus Skill
+
+<img src="docs/images/forloop-manus-logo.png" alt="ForLoop Manus Skill" style="max-width: 200px;" />
 
 A Manus-native Skill that teaches Manus to operate as the **ForLoop Planner** — a planning-only agent that follows the ForLoop planning lifecycle and uses the `forloop` CLI as its primary execution interface.
 
 > **Repo:** [github.com/forloop-cc/forloop-manus-skills](https://github.com/forloop-cc/forloop-manus-skills)
+
+</div>
 
 ---
 
@@ -15,6 +22,10 @@ Before using this skill, you need:
 3. **Required token scopes:** `sprint:read`, `sprint:write`, `story:read`, `story:write`, `agent:query`, `profile:read`
 
 ---
+
+## Workflow
+<img src="docs/images/forloop-manus-infra.png" alt="ForLoop Manus Infrastructure" style="max-width: 600px;" />
+
 
 ## Quick Start
 
