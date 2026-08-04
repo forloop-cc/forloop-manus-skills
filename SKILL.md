@@ -56,6 +56,7 @@ Use this skill when the user asks you to:
 - Break work into tasks and estimate effort
 - Create stories (implementation tasks, notes, document folders)
 - Upload plan, task, or knowledge files to S3
+- Manage iterations (sub-sprints): list, create, update, delete
 - Check developer agent status or trigger implementation
 - Sync files between local storage and S3
 - Manage organizations, user profiles, or quotas (planning context only)
@@ -233,7 +234,7 @@ Reconfirm what you are and are not doing. If the user asks for implementation, r
 - Read the plan, decompose into discrete tasks
 - Estimate points per task (see `references/forloop-methodology.md` for sizing rules)
 - **Ensure doc_folder** before creating any stories
-- Create stories one at a time with correct `--type` and `--assignee-agent` (see Section 9)
+- Create stories one at a time with correct `--type` and `--assignee-agent` (see Section 10)
 - Write task file, upload with `--story-id $DOC_ID`, update manifest, verify
 - After all stories are created, present a summary
 
@@ -284,7 +285,58 @@ forloop file list --sprint {id} --output json --non-interactive | jq '.[].origin
 
 After EVERY upload, run `forloop file list` and confirm the file appears. Never claim an upload succeeded without verification evidence.
 
-## 9. Story Creation Rules
+## 9. Iteration (Sub-Sprint) Management
+
+A sprint can contain multiple iterations (sub-sprints). Only one iteration is active
+(in_progress) at a time. Stories from the `basic-task` template auto-link to the active
+iteration — no manual assignment is needed.
+
+### Discovering iterations
+
+Always check the current iteration state after loading sprint context:
+
+```bash
+forloop sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-interactive
+```
+
+Report: "Sprint '<name>' has N iteration(s). Active: <title> (<startDate> – <endDate>)."
+
+### Starting a new iteration
+
+When the user wants to begin a new iteration (e.g., "let's start sprint 2"):
+
+```bash
+forloop sprint sub-sprint create \
+  --sprint-id $SPRINT_ID \
+  --start-date 2026-08-15 \
+  --end-date 2026-08-28 \
+  --title "Iteration 2 — Payment Integration" \
+  --output json --non-interactive
+```
+
+This auto-completes the previously active iteration. `basic-task` stories created after
+this point auto-link to the new iteration.
+
+### Updating an iteration
+
+```bash
+forloop sprint sub-sprint update \
+  --id $SUB_SPRINT_ID \
+  --end-date 2026-09-04 \
+  --output json --non-interactive
+```
+
+### Deleting an iteration
+
+```bash
+forloop sprint sub-sprint delete --id $SUB_SPRINT_ID --confirm \
+  --output json --non-interactive
+```
+
+All sub-sprint commands follow standard CLI rules: `--output json`, `--non-interactive`.
+Only `delete` commands require `--confirm`.
+
+## 10. Story Creation Rules
 
 All implementation work uses the `basic-task` template. All documentation uses `basic-note`. Document folders are created by omitting `--type`.
 
@@ -319,7 +371,7 @@ forloop story create \
 - **Story points** use Fibonacci: 1, 2, 3, 5, 8, 10. Stories above 10 points must be split. See `references/story-patterns.md` for detailed guidance.
 - **Never create stories before confirming the plan with the user.**
 
-## 10. Failure Handling
+## 11. Failure Handling
 
 Handle failures explicitly. Never silently continue after an error.
 
@@ -368,7 +420,7 @@ If `npm install -g @forloop-cc/forloop-cli` fails:
 - Try: `npm config set registry https://registry.npmjs.org/`
 - Fall back to guidance-only mode
 
-## 11. Out-of-Scope Behavior
+## 12. Out-of-Scope Behavior
 
 When a user asks for something this skill does not do, respond with a clear boundary message and offer an alternative.
 
@@ -381,7 +433,7 @@ When a user asks for something this skill does not do, respond with a clear boun
 | Non-ForLoop planning (Jira, Linear, etc.) | "I work exclusively with the ForLoop platform. I can help you plan within ForLoop sprints." |
 | Anything with curl or raw API calls | "I use the forloop CLI, never raw API calls. Let me show you the correct command." |
 
-## 12. References
+## 13. References
 
 For detailed guidance, load these bundled resources when needed:
 

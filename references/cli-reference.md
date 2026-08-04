@@ -154,6 +154,102 @@ forloop sprint delete --id 14 --confirm --output json --non-interactive
 
 ---
 
+## Sub-Sprint (Iteration) Management
+
+### `sprint sub-sprint list`
+
+List all iterations within a sprint.
+
+```bash
+forloop sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-interactive
+```
+
+| Flag | Type | Required | Description |
+|------|------|----------|-------------|
+| `--sprint-id` | number | Yes | Sprint ID |
+
+**JSON output:**
+```json
+[
+  {
+    "id": 1,
+    "sprintId": 10,
+    "title": "My Sprint — Iteration 1",
+    "startDate": "2026-08-01T00:00:00.000Z",
+    "endDate": "2026-08-14T00:00:00.000Z",
+    "status": "completed",
+    "order": 0
+  },
+  {
+    "id": 2,
+    "title": "Iteration 2 — Payment Integration",
+    "startDate": "2026-08-15T00:00:00.000Z",
+    "endDate": "2026-08-28T00:00:00.000Z",
+    "status": "in_progress",
+    "order": 1
+  }
+]
+```
+
+### `sprint sub-sprint create`
+
+Create a new iteration. The previously active iteration is auto-completed.
+
+```bash
+forloop sprint sub-sprint create \
+  --sprint-id $SPRINT_ID \
+  --start-date 2026-08-15 \
+  --end-date 2026-08-28 \
+  --title "Iteration 2" \
+  --output json --non-interactive
+```
+
+| Flag | Type | Required | Description |
+|------|------|----------|-------------|
+| `--sprint-id` | number | Yes | Sprint ID |
+| `--start-date` | string | Yes | Start date (YYYY-MM-DD) |
+| `--end-date` | string | Yes | End date (YYYY-MM-DD) |
+| `--title` | string | No | Iteration title (auto-generates if omitted) |
+
+**JSON output:** Single sub-sprint object (same shape as list items).
+
+### `sprint sub-sprint update`
+
+Update an iteration title, dates, or status.
+
+```bash
+forloop sprint sub-sprint update \
+  --id $SUB_SPRINT_ID \
+  --status completed \
+  --output json --non-interactive
+```
+
+| Flag | Type | Required | Description |
+|------|------|----------|-------------|
+| `--id` | number | Yes | Sub-sprint ID |
+| `--title` | string | No | New title |
+| `--start-date` | string | No | New start date |
+| `--end-date` | string | No | New end date |
+| `--status` | string | No | `planned`, `in_progress`, or `completed` |
+
+### `sprint sub-sprint delete`
+
+Soft-delete an iteration.
+
+```bash
+forloop sprint sub-sprint delete --id $SUB_SPRINT_ID --confirm \
+  --output json --non-interactive
+```
+
+| Flag | Type | Required | Description |
+|------|------|----------|-------------|
+| `--id` | number | Yes | Sub-sprint ID |
+| `--confirm` | flag | Yes | Safety confirmation |
+
+**JSON output:** `{ "success": true }`
+
+---
+
 ## Story Commands
 
 ### List stories (via sprint get)
