@@ -168,8 +168,8 @@ Run read-only checks only. Do not create, update, upload, trigger, or delete any
 
 Please run:
 1. forloop org list --output json --non-interactive
-2. forloop sprint list --output json --non-interactive
-3. forloop sprint get --output json --non-interactive
+2. forloop space-sprint list --output json --non-interactive
+3. forloop space-sprint get --output json --non-interactive
 
 If sprint auto-detection fails, explain that clearly and use an explicit sprint id only after asking me.
 

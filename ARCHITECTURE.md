@@ -26,7 +26,7 @@ Extracted from `forLoopPlannerCLI.md`, `forloop-cli/SKILL.md`, and `SKILLS-GAP-A
 7. **Read `knowledge-application.md`** if it exists
 8. **Load conversation history** — `forloop agent history --limit 50 --output json --non-interactive`
 9. **Check developer status** — `forloop agent developer-status --output json --non-interactive`
-10. **Check in-progress stories** — `forloop sprint get` + `forloop story get --id N`
+10. **Check in-progress stories** — `forloop space-sprint get` + `forloop story get --id N`
 11. **Present context summary** to user, confirm active sprint
 
 **If manifest is missing:** Stop searching. Use CLI to list orgs/sprints. Ask user to select.
@@ -40,14 +40,14 @@ Extracted from `forLoopPlannerCLI.md`, `forloop-cli/SKILL.md`, and `SKILLS-GAP-A
 #### Step 2 — Context Discovery
 
 - Verify auth: `forloop auth status --non-interactive`
-- Get sprint details: `forloop sprint get --output json --non-interactive | jq '{id, title, stories}'`
+- Get sprint details: `forloop space-sprint get --output json --non-interactive | jq '{id, title, stories}'`
 - Confirm with user: "Working on sprint #<id>?"
 
 #### Step 3 — Sprint Selection (If Missing)
 
 1. Check orgs: `forloop org list --output json --non-interactive`
 2. If no org, guide user to create one
-3. List sprints or create new: `forloop sprint create --title "..." --start-date ... --end-date ... --org-id N --output json --non-interactive`
+3. List sprints or create new: `forloop space-sprint create --title "..." --start-date ... --end-date ... --org-id N --output json --non-interactive`
 
 #### Step 4 — Requirements Gathering + Knowledge Capture
 

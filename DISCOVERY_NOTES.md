@@ -258,7 +258,7 @@ Goal: test safe platform interaction before any writes.
 
 #### Test D2 — Sprint Listing
 - Action:
-  - `forloop sprint list --output json --non-interactive`
+  - `forloop space-sprint list --output json --non-interactive`
 - Verify:
   - command succeeds
   - response shape matches expectations
@@ -269,7 +269,7 @@ Goal: test safe platform interaction before any writes.
 
 #### Test D3 — Sprint Get
 - Action:
-  - `forloop sprint get --output json --non-interactive`
+  - `forloop space-sprint get --output json --non-interactive`
   - or use explicit `--id` if needed
 - Verify:
   - auto-detection works when expected

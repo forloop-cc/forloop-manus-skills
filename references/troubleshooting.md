@@ -168,12 +168,12 @@ forloop user quotas --output json --non-interactive
 **Step 1: List available orgs and sprints**
 ```bash
 forloop org list --output json --non-interactive
-forloop sprint list --output json --non-interactive
+forloop space-sprint list --output json --non-interactive
 ```
 
 **Step 2: If org exists but no sprint, create one**
 ```bash
-forloop sprint create \
+forloop space-sprint create \
   --title "Sprint N" \
   --start-date YYYY-MM-DD \
   --end-date YYYY-MM-DD \
@@ -194,15 +194,15 @@ Auto-detection works via `FORLOOP_SPRINT_ID` env var or git branch name (`sprint
 
 If auto-detection fails, pass `--sprint` or `--id` explicitly:
 ```bash
-forloop sprint get --id 14 --output json --non-interactive
-forloop sprint get --sprint 14 --output json --non-interactive
+forloop space-sprint get --id 14 --output json --non-interactive
+forloop space-sprint get --sprint 14 --output json --non-interactive
 ```
 
 ### Symptom: Sprint exists but commands fail with "sprint not found"
 
 The sprint may have been deleted or the user may not have access. Verify:
 ```bash
-forloop sprint list --output json --non-interactive | jq '.[] | {id, title, status}'
+forloop space-sprint list --output json --non-interactive | jq '.[] | {id, title, status}'
 ```
 
 ---
@@ -218,7 +218,7 @@ forloop auth status
 
 **Check sprint context:**
 ```bash
-forloop sprint get --output json --non-interactive | jq '{id, title}'
+forloop space-sprint get --output json --non-interactive | jq '{id, title}'
 ```
 
 **If both are correct:** The doc folder may already exist but in an unexpected state. Try specifying a title:
@@ -286,7 +286,7 @@ If the file doesn't exist, write it first before uploading.
 
 Always capture the exit code after every command:
 ```bash
-RESULT=$(forloop sprint get --output json --non-interactive 2>&1)
+RESULT=$(forloop space-sprint get --output json --non-interactive 2>&1)
 EXIT_CODE=$?
 if [ $EXIT_CODE -ne 0 ]; then
   case $EXIT_CODE in
@@ -337,7 +337,7 @@ Run these before starting work to catch common issues early:
 
 - [ ] `forloop --version` returns a version (CLI is installed)
 - [ ] `forloop auth status` does not say "Not authenticated"
-- [ ] `forloop sprint get --output json --non-interactive` returns sprint data (sprint context exists)
+- [ ] `forloop space-sprint get --output json --non-interactive` returns sprint data (sprint context exists)
 - [ ] `forloop user quotas --output json --non-interactive` shows available quota (not at limit)
 - [ ] `jq --version` returns a version (JSON parser available)
 - [ ] `~/.forloop/` directory exists and is writable

@@ -34,7 +34,7 @@ Run after passing the runtime install check. All items in order.
 - [ ] `knowledge-application.md` read (if exists)
 
 ### Sprint Context
-- [ ] `forloop sprint get` returned sprint details
+- [ ] `forloop space-sprint get` returned sprint details
 - [ ] Stories loaded: `jq '.stories[] | {id, title, status, assigneeAgent}'`
 - [ ] Developer status checked: `forloop agent developer-status`
 - [ ] Conversation history loaded: `forloop agent history --limit 50`
@@ -143,10 +143,10 @@ Run before telling the user the planning session is complete.
 
 | Claim | Required Evidence |
 |-------|------------------|
-| "Story created" | Output of `forloop sprint get | jq '.stories[]'` showing the new story |
+| "Story created" | Output of `forloop space-sprint get | jq '.stories[]'` showing the new story |
 | "File uploaded" | Output of `forloop file list | jq '.[].originalName'` showing the file |
 | "Auth works" | Output of `forloop auth status` showing authenticated |
-| "Sprint exists" | Output of `forloop sprint get` showing sprint details |
+| "Sprint exists" | Output of `forloop space-sprint get` showing sprint details |
 | "Developer triggered" | Output of `forloop agent developer-status` showing RUNNING |
 
 **Wrong:** "The file has been uploaded to S3."

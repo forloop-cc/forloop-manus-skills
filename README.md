@@ -90,7 +90,7 @@ Create a new sprint called "Sprint 1: User Dashboard" for my organization.
 The skill will:
 1. List your organizations and ask you to pick one
 2. Confirm sprint details (title, dates)
-3. Create the sprint via `forloop sprint create`
+3. Create the sprint via `forloop space-sprint create`
 4. Confirm the sprint was created successfully
 
 ### 3. Gathering Requirements

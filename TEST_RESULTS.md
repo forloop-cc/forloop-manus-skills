@@ -143,14 +143,14 @@
 - **Notes:**
 
 ### Test D2 — Sprint Listing
-- **Action:** `forloop sprint list --output json --non-interactive`
+- **Action:** `forloop space-sprint list --output json --non-interactive`
 - **Expected:** Command succeeds, response shape matches expectations, skill summarizes results
 - **Result:**
 - **Evidence:**
 - **Notes:**
 
 ### Test D3 — Sprint Get
-- **Action:** `forloop sprint get --output json --non-interactive` (or with explicit `--id`)
+- **Action:** `forloop space-sprint get --output json --non-interactive` (or with explicit `--id`)
 - **Expected:** Auto-detection works or explicit sprint selection works when auto-detection fails
 - **Result:**
 - **Evidence:**

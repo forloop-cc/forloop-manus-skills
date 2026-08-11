@@ -146,7 +146,7 @@ At the start of every planning session, complete these steps in order. Do not sk
    ```
 9. Get full sprint context including in-progress stories:
    ```bash
-   forloop sprint get --output json --non-interactive | jq '{id, title, status, stories: [.stories[] | {id, title, status, assigneeAgent}]}'
+   forloop space-sprint get --output json --non-interactive | jq '{id, title, status, stories: [.stories[] | {id, title, status, assigneeAgent}]}'
    ```
 10. **Present a context summary** to the user. Include: active sprint, story counts by status, any running developer agent, recent conversation activity
 11. **Confirm the active sprint** with the user before making any changes
@@ -154,7 +154,7 @@ At the start of every planning session, complete these steps in order. Do not sk
 **If manifest is missing or empty:** Do not search the local filesystem. Use the CLI:
 ```bash
 forloop org list --output json --non-interactive
-forloop sprint list --output json --non-interactive
+forloop space-sprint list --output json --non-interactive
 ```
 Present results and ask the user to select or create a sprint.
 
@@ -208,14 +208,14 @@ Reconfirm what you are and are not doing. If the user asks for implementation, r
 
 ### Step 2: Context Discovery
 - Verify auth: `forloop auth status`
-- Get sprint: `forloop sprint get --output json --non-interactive | jq '{id, title, stories}'`
+- Get sprint: `forloop space-sprint get --output json --non-interactive | jq '{id, title, stories}'`
 - Confirm: "Working on sprint #<id> — <title>?"
 
 ### Step 3: Sprint Selection (if no active sprint)
 1. List orgs: `forloop org list --output json --non-interactive`
 2. If no org, guide user to create one via web app or CLI
-3. List sprints: `forloop sprint list --output json --non-interactive`
-4. Or create: `forloop sprint create --title "Sprint N" --start-date YYYY-MM-DD --end-date YYYY-MM-DD --org-id N --output json --non-interactive`
+3. List sprints: `forloop space-sprint list --output json --non-interactive`
+4. Or create: `forloop space-sprint create --title "Sprint N" --start-date YYYY-MM-DD --end-date YYYY-MM-DD --org-id N --output json --non-interactive`
 
 ### Step 4: Requirements Gathering + Knowledge Capture
 - Ask focused questions one at a time: goal → scope → constraints → success criteria → dependencies
@@ -296,7 +296,7 @@ iteration — no manual assignment is needed.
 Always check the current iteration state after loading sprint context:
 
 ```bash
-forloop sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-interactive
+forloop space-sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-interactive
 ```
 
 Report: "Sprint '<name>' has N iteration(s). Active: <title> (<startDate> – <endDate>)."
@@ -306,7 +306,7 @@ Report: "Sprint '<name>' has N iteration(s). Active: <title> (<startDate> – <e
 When the user wants to begin a new iteration (e.g., "let's start sprint 2"):
 
 ```bash
-forloop sprint sub-sprint create \
+forloop space-sprint sub-sprint create \
   --sprint-id $SPRINT_ID \
   --start-date 2026-08-15 \
   --end-date 2026-08-28 \
@@ -320,7 +320,7 @@ this point auto-link to the new iteration.
 ### Updating an iteration
 
 ```bash
-forloop sprint sub-sprint update \
+forloop space-sprint sub-sprint update \
   --id $SUB_SPRINT_ID \
   --end-date 2026-09-04 \
   --output json --non-interactive
@@ -329,7 +329,7 @@ forloop sprint sub-sprint update \
 ### Deleting an iteration
 
 ```bash
-forloop sprint sub-sprint delete --id $SUB_SPRINT_ID --confirm \
+forloop space-sprint sub-sprint delete --id $SUB_SPRINT_ID --confirm \
   --output json --non-interactive
 ```
 
@@ -404,7 +404,7 @@ Until then, I can provide planning guidance but cannot interact with ForLoop.
 ### Sync Failure
 If `forloop sync aivy-folder` or `forloop sync s3-to-local` fails:
 - Check auth: `forloop auth status`
-- Check sprint context: `forloop sprint get --output json --non-interactive`
+- Check sprint context: `forloop space-sprint get --output json --non-interactive`
 - If the sprint ID is wrong, set it explicitly with `--sprint N`
 
 ### Sprint Context Missing

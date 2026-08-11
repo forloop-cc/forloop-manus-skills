@@ -102,9 +102,9 @@ Token source: [forloop.cc/profile?tab=api-tokens](https://forloop.cc/profile?tab
 ### List sprints
 
 ```bash
-forloop sprint list --output json --non-interactive
-forloop sprint list --org-id 2 --output json --non-interactive
-forloop sprint list --include-system-org --output json --non-interactive
+forloop space-sprint list --output json --non-interactive
+forloop space-sprint list --org-id 2 --output json --non-interactive
+forloop space-sprint list --include-system-org --output json --non-interactive
 ```
 
 Returns: `[{ "id": 14, "title": "...", "status": "active", "startDate": "...", "endDate": "..." }]`
@@ -112,9 +112,9 @@ Returns: `[{ "id": 14, "title": "...", "status": "active", "startDate": "...", "
 ### Get sprint details
 
 ```bash
-forloop sprint get --output json --non-interactive               # auto-detects
-forloop sprint get --id 14 --output json --non-interactive       # explicit
-forloop sprint get --id 14 --no-files --output json --non-interactive  # stories only
+forloop space-sprint get --output json --non-interactive               # auto-detects
+forloop space-sprint get --id 14 --output json --non-interactive       # explicit
+forloop space-sprint get --id 14 --no-files --output json --non-interactive  # stories only
 ```
 
 Returns sprint object with embedded `stories` array and `files` array (by default).
@@ -122,7 +122,7 @@ Returns sprint object with embedded `stories` array and `files` array (by defaul
 ### Create sprint
 
 ```bash
-forloop sprint create \
+forloop space-sprint create \
   --title "Sprint 15: API Redesign" \
   --start-date 2026-06-15 \
   --end-date 2026-06-28 \
@@ -139,7 +139,7 @@ Returns: `{ "id": 15, "title": "...", "startDate": "...", "endDate": "..." }`
 ### Update sprint
 
 ```bash
-forloop sprint update --id 14 --title "Updated Title" --output json --non-interactive
+forloop space-sprint update --id 14 --title "Updated Title" --output json --non-interactive
 ```
 
 Partial updates: only pass flags you want to change.
@@ -147,7 +147,7 @@ Partial updates: only pass flags you want to change.
 ### Delete sprint
 
 ```bash
-forloop sprint delete --id 14 --confirm --output json --non-interactive
+forloop space-sprint delete --id 14 --confirm --output json --non-interactive
 ```
 
 **Requires `--confirm`.** Warn the user before running.
@@ -161,7 +161,7 @@ forloop sprint delete --id 14 --confirm --output json --non-interactive
 List all iterations within a sprint.
 
 ```bash
-forloop sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-interactive
+forloop space-sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-interactive
 ```
 
 | Flag | Type | Required | Description |
@@ -196,7 +196,7 @@ forloop sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-intera
 Create a new iteration. The previously active iteration is auto-completed.
 
 ```bash
-forloop sprint sub-sprint create \
+forloop space-sprint sub-sprint create \
   --sprint-id $SPRINT_ID \
   --start-date 2026-08-15 \
   --end-date 2026-08-28 \
@@ -218,7 +218,7 @@ forloop sprint sub-sprint create \
 Update an iteration title, dates, or status.
 
 ```bash
-forloop sprint sub-sprint update \
+forloop space-sprint sub-sprint update \
   --id $SUB_SPRINT_ID \
   --status completed \
   --output json --non-interactive
@@ -237,7 +237,7 @@ forloop sprint sub-sprint update \
 Soft-delete an iteration.
 
 ```bash
-forloop sprint sub-sprint delete --id $SUB_SPRINT_ID --confirm \
+forloop space-sprint sub-sprint delete --id $SUB_SPRINT_ID --confirm \
   --output json --non-interactive
 ```
 
@@ -256,7 +256,7 @@ forloop sprint sub-sprint delete --id $SUB_SPRINT_ID --confirm \
 
 Stories are embedded in sprint output:
 ```bash
-forloop sprint get --output json --non-interactive | jq '.stories[] | {id, title, status, assigneeAgent}'
+forloop space-sprint get --output json --non-interactive | jq '.stories[] | {id, title, status, assigneeAgent}'
 ```
 
 ### Create story from template
@@ -542,7 +542,7 @@ forloop sync aivy-folder --output json --non-interactive
 forloop sync s3-to-local --output json --non-interactive
 
 # 4. Load sprint context
-forloop sprint get --output json --non-interactive | jq '.stories'
+forloop space-sprint get --output json --non-interactive | jq '.stories'
 
 # 5. Check developer
 forloop agent developer-status --output json --non-interactive
@@ -555,7 +555,7 @@ forloop agent developer-status --output json --non-interactive
 forloop org list --output json --non-interactive | jq '.[] | {id, name}'
 
 # 2. Create sprint
-forloop sprint create \
+forloop space-sprint create \
   --title "Sprint 15" \
   --start-date 2026-07-01 \
   --end-date 2026-07-14 \
@@ -563,7 +563,7 @@ forloop sprint create \
   --output json --non-interactive
 
 # 3. Verify
-forloop sprint get --output json --non-interactive | jq '{id, title, startDate, endDate}'
+forloop space-sprint get --output json --non-interactive | jq '{id, title, startDate, endDate}'
 ```
 
 ### Story creation (full flow)
@@ -583,7 +583,7 @@ forloop story create \
   --output json --non-interactive
 
 # 3. Verify stories in sprint
-forloop sprint get --output json --non-interactive | jq '.stories[] | {id, title, status}'
+forloop space-sprint get --output json --non-interactive | jq '.stories[] | {id, title, status}'
 ```
 
 ### Upload workflow
