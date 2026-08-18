@@ -142,16 +142,16 @@
 - **Evidence:**
 - **Notes:**
 
-### Test D2 — Sprint Listing
+### Test D2 — Space Listing
 - **Action:** `forloop space-sprint list --output json --non-interactive`
 - **Expected:** Command succeeds, response shape matches expectations, skill summarizes results
 - **Result:**
 - **Evidence:**
 - **Notes:**
 
-### Test D3 — Sprint Get
+### Test D3 — Space Get
 - **Action:** `forloop space-sprint get --output json --non-interactive` (or with explicit `--id`)
-- **Expected:** Auto-detection works or explicit sprint selection works when auto-detection fails
+- **Expected:** Auto-detection works or explicit space selection works when auto-detection fails
 - **Result:**
 - **Evidence:**
 - **Notes:**
@@ -234,7 +234,7 @@
 ## Phase G — Skill Behavior Verification
 
 ### Test G1 — Preflight Obedience
-- **Action:** Ask the skill to inspect sprint context
+- **Action:** Ask the skill to inspect space context
 - **Expected:** Skill starts with preflight and auth/context checks before acting
 - **Result:**
 - **Evidence:**

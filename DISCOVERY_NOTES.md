@@ -256,7 +256,7 @@ Goal: test safe platform interaction before any writes.
 - Evidence:
 - Notes:
 
-#### Test D2 — Sprint Listing
+#### Test D2 — Space Listing
 - Action:
   - `forloop space-sprint list --output json --non-interactive`
 - Verify:
@@ -267,13 +267,13 @@ Goal: test safe platform interaction before any writes.
 - Evidence:
 - Notes:
 
-#### Test D3 — Sprint Get
+#### Test D3 — Space Get
 - Action:
   - `forloop space-sprint get --output json --non-interactive`
   - or use explicit `--id` if needed
 - Verify:
   - auto-detection works when expected
-  - explicit sprint selection works when auto-detection does not
+  - explicit space selection works when auto-detection does not
 - Result:
 - Evidence:
 - Notes:
@@ -357,7 +357,7 @@ Goal: prove the write path only after read-only and auth checks pass.
 Goal: prove the Manus skill follows the intended planner workflow rather than generic assistant behavior.
 
 #### Test G1 — Preflight Obedience
-- Action: ask the skill to inspect sprint context
+- Action: ask the skill to inspect space context
 - Verify:
   - it starts with preflight and auth/context checks
   - it does not jump directly into planning actions

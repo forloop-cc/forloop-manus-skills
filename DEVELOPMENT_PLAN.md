@@ -302,7 +302,7 @@ The discovery notes now contain a comprehensive 23-test verification plan organi
 | A | Import and Packaging | A1 Folder import, A2 GitHub import, A3 Resource discovery | Low |
 | B | Runtime Environment | B1 Shell availability, B2 Tool check, B3 Runtime install, B4 CLI verification | Low-Med |
 | C | Authentication | C1 Status before login, C2 Login flow, C3 Status after login, C4 Auth persistence | Medium |
-| D | Read-Only ForLoop | D1 Org listing, D2 Sprint listing, D3 Sprint get | Medium |
+| D | Read-Only ForLoop | D1 Org listing, D2 Space listing, D3 Space get | Medium |
 | E | Filesystem and Persistence | E1 Path creation, E2 Sync to local, E3 Same-session, E4 Cross-session | Medium-High |
 | F | Minimal Mutation | F1 Doc folder ensure/get, F2 Upload verification | High |
 | G | Skill Behavior | G1 Preflight obedience, G2 Planning boundary, G3 Command discipline | High |
@@ -434,7 +434,7 @@ Tasks:
   - verify `forloop --version`
   - verify auth state
   - sync remote documents
-  - inspect sprint context
+  - inspect space context
   - summarize findings
 - Encode mandatory command rules:
   - `--output json`
@@ -444,7 +444,7 @@ Tasks:
   - warn before destructive actions
 - Encode the default workflow:
   - session start
-  - sprint discovery
+  - space discovery
   - requirements gathering
   - knowledge capture
   - plan generation
@@ -481,14 +481,14 @@ Tasks:
   - runtime installation
   - install
   - auth
-  - sprint commands
+  - space commands
   - story commands
   - sync commands
   - agent commands
   - exit codes
 - `references/forloop-methodology.md`
   - what “ForLoop way” means
-  - sprint design principles
+  - space design principles
   - story sizing and splitting rules
   - knowledge capture standards
   - expected plan document quality
@@ -505,7 +505,7 @@ Tasks:
   - upload verification checklist
 - `references/troubleshooting.md`
   - auth issues
-  - missing sprint context
+  - missing space context
   - CLI missing
   - runtime install failed
   - missing `node` or `npm`
@@ -568,13 +568,13 @@ Validate the skill in the real Manus environment with realistic planner tasks.
 
 Test scenarios:
 
-- Scenario 1: user asks to inspect current sprint and summarize context
-- Scenario 2: user asks to create a sprint plan from vague requirements
+- Scenario 1: user asks to inspect current space and summarize context
+- Scenario 2: user asks to create a space plan from vague requirements
 - Scenario 3: user asks to break a plan into stories with proper agent assignment
 - Scenario 4: user asks to upload plan or knowledge documents
 - Scenario 5: user asks for an action that is out of scope, such as writing app code
 - Scenario 6: auth missing or CLI unavailable
-- Scenario 7: sprint context missing and must be discovered
+- Scenario 7: space context missing and must be discovered
 - Scenario 8: CLI is not installed and must be installed at runtime
 - Scenario 9: `npm` is unavailable, so the skill must stop cleanly and explain the limitation
 
@@ -653,10 +653,10 @@ Recommended opening emphasis:
 To keep v1 focused, the recommended scope is:
 
 - planning-only workflow
-- sprint discovery
+- space discovery
 - requirements gathering
 - knowledge capture guidance
-- sprint plan generation guidance
+- space plan generation guidance
 - task breakdown guidance
 - story creation guidance
 - optional developer trigger guidance

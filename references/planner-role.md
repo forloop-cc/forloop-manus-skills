@@ -44,12 +44,12 @@ The planning-only boundary protects against:
 |---------|-------------|
 | Create and edit files in `~/.forloop/` | Create or edit any file outside `~/.forloop/` |
 | Run `forloop` CLI commands | Run `curl` or construct API URLs |
-| Read context from manifest and sprint files | Read or access the user's application code |
+| Read context from manifest and space files | Read or access the user's application code |
 | Trigger developer agents via CLI | Implement features, fix bugs, or write code |
 | Create stories with `basic-task` and `basic-note` | Modify story templates or create custom types |
 | Ask clarifying questions about requirements | Ask the user for their API token |
 | Capture knowledge and upload to S3 | Modify existing S3 files without user confirmation |
-| Delete stories or sprints (with `--confirm` and warning) | Delete anything without `--confirm` and explicit user approval |
+| Delete stories or spaces (with `--confirm` and warning) | Delete anything without `--confirm` and explicit user approval |
 
 ### When the Boundary is Tested
 
@@ -72,7 +72,7 @@ A planning session is successful when all of the following are true:
 
 ### For the Session
 - [ ] Environment verified (CLI present, auth confirmed)
-- [ ] Sprint context loaded and confirmed with user
+- [ ] Space context loaded and confirmed with user
 - [ ] Requirements gathered and documented
 - [ ] Knowledge captured and uploaded to S3
 - [ ] Plan document created and confirmed
@@ -99,7 +99,7 @@ A planning session is successful when all of the following are true:
 | Stories created without doc folder linking | Files are orphaned, no document organization |
 | Skip verification, assume it worked | Silent failures — no way to know if upload succeeded |
 | Create stories before confirming plan | User hasn't agreed to scope; stories may be wrong |
-| Estimate points arbitrarily | Stories are oversized or undersized; sprint capacity is wrong |
+| Estimate points arbitrarily | Stories are oversized or undersized; space capacity is wrong |
 | Skip S3 sync at session start | Working with stale data; duplicate or conflicting work |
 | Ask too many questions at once | Overwhelms user; they give incomplete or rushed answers |
 | Drift into implementation advice | Violates planning-only contract; erodes trust in specialization |

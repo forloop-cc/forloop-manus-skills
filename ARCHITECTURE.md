@@ -15,7 +15,7 @@ Extracted from `forLoopPlannerCLI.md`, `forloop-cli/SKILL.md`, and `SKILLS-GAP-A
 1. **Verify CLI presence** — `command -v forloop`; if missing and `npm` exists, `npm install -g @forloop-cc/forloop-cli`
 2. **Verify CLI version** — `forloop --version`
 3. **Verify auth** — `forloop auth status` (text output, always exits 0)
-4. **Read manifest** — `~/.forloop/manifest.json` for active sprint
+4. **Read manifest** — `~/.forloop/manifest.json` for active space
 5. **Sync from S3** (mandatory — catches missed steps from gap analysis):
    ```bash
    forloop sync aivy-folder --output json --non-interactive
@@ -27,9 +27,9 @@ Extracted from `forLoopPlannerCLI.md`, `forloop-cli/SKILL.md`, and `SKILLS-GAP-A
 8. **Load conversation history** — `forloop agent history --limit 50 --output json --non-interactive`
 9. **Check developer status** — `forloop agent developer-status --output json --non-interactive`
 10. **Check in-progress stories** — `forloop space-sprint get` + `forloop story get --id N`
-11. **Present context summary** to user, confirm active sprint
+11. **Present context summary** to user, confirm active space
 
-**If manifest is missing:** Stop searching. Use CLI to list orgs/sprints. Ask user to select.
+**If manifest is missing:** Stop searching. Use CLI to list orgs/spaces. Ask user to select.
 
 #### Step 1 — Safety Boundary
 
@@ -40,14 +40,14 @@ Extracted from `forLoopPlannerCLI.md`, `forloop-cli/SKILL.md`, and `SKILLS-GAP-A
 #### Step 2 — Context Discovery
 
 - Verify auth: `forloop auth status --non-interactive`
-- Get sprint details: `forloop space-sprint get --output json --non-interactive | jq '{id, title, stories}'`
-- Confirm with user: "Working on sprint #<id>?"
+- Get space details: `forloop space-sprint get --output json --non-interactive | jq '{id, title, stories}'`
+- Confirm with user: "Working on space #<id>?"
 
-#### Step 3 — Sprint Selection (If Missing)
+#### Step 3 — Space Selection (If Missing)
 
 1. Check orgs: `forloop org list --output json --non-interactive`
 2. If no org, guide user to create one
-3. List sprints or create new: `forloop space-sprint create --title "..." --start-date ... --end-date ... --org-id N --output json --non-interactive`
+3. List spaces or create new: `forloop space-sprint create --title "..." --start-date ... --end-date ... --org-id N --output json --non-interactive`
 
 #### Step 4 — Requirements Gathering + Knowledge Capture
 
@@ -94,7 +94,7 @@ Extracted from `forLoopPlannerCLI.md` and `forloop-cli/SKILL.md`.
 | 5 | **Never ask user for token** — direct to `forloop auth login` | Both |
 | 6 | **Warn before destructive commands** — `--confirm` on delete | Both |
 | 7 | **Parse JSON with `jq`** — `jq '.[].id'`, `jq -r '.title'`, `jq 'length'` | Both |
-| 8 | **Prefer sprint ID auto-detection** — env var or git branch | Both |
+| 8 | **Prefer space ID auto-detection** — env var or git branch | Both |
 | 9 | **Auth status is text-only** — always exits 0 | `forloop-cli/SKILL.md` |
 | 10 | **Runtime install as preflight** — never assume CLI is preinstalled | New (DEV_PLAN §5.2) |
 
@@ -204,12 +204,12 @@ How content from existing source files maps to new Manus skill artifacts.
 | `forLoopPlannerCLI.md` §"Path Reminders" | ~/.forloop paths | `SKILL.md` §4 (Prerequisites) |
 | `forloop-cli/SKILL.md` §"Installation" | npm install, brew, verify | `references/cli-reference.md` |
 | `forloop-cli/SKILL.md` §"Command Pattern" | Flags, exit codes, jq | `references/cli-reference.md` |
-| `forloop-cli/SKILL.md` §"Sprint Commands" | list, get, create, update, delete | `references/cli-reference.md` |
+| `forloop-cli/SKILL.md` §"Space Commands" | list, get, create, update, delete | `references/cli-reference.md` |
 | `forloop-cli/SKILL.md` §"Story Commands" | create, get, update, delete | `references/cli-reference.md` |
 | `forloop-cli/SKILL.md` §"Sync Commands" | aivy-folder, aivy-doc-get, s3-to-local, local-to-s3 | `references/cli-reference.md` |
 | `forloop-cli/SKILL.md` §"File Commands" | list, upload, delete, download | `references/cli-reference.md` |
 | `forloop-cli/SKILL.md` §"Developer Agent Commands" | developer-status, developer-sprint, history | `references/cli-reference.md` |
-| `forloop-cli/SKILL.md` §"Workflow Patterns" | Session startup, sprint creation, story creation, upload | `SKILL.md` §8 (Default planning workflow) |
+| `forloop-cli/SKILL.md` §"Workflow Patterns" | Session startup, space creation, story creation, upload | `SKILL.md` §8 (Default planning workflow) |
 | `forloop-cli/SKILL.md` §"Important Rules" | 8 rules | `SKILL.md` §7 (Non-negotiable command rules) |
 | `SKILLS-GAP-ANALYSIS.md` | Missing S3 sync, missing doc_folder, missing verify | `SKILL.md` §6 (Session startup — sync is mandatory), §10 (verify uploads) |
 | `forLoopPlanner.md` (plugin) §"Story Content" | Description template, field reference | `references/story-patterns.md` |
@@ -226,9 +226,9 @@ How content from existing source files maps to new Manus skill artifacts.
 | Field | Value |
 |-------|-------|
 | **name** | `forloop-planner` |
-| **description** | Planning-only ForLoop sprint planner. Uses the forloop CLI for sprint management, story creation, file sync, and developer triggers. Never implements application code. |
-| **scope** | Sprint planning, requirements gathering, knowledge capture, task breakdown, story creation, plan documentation |
-| **when to use** | User asks to plan a sprint, create stories, capture requirements, upload plan/knowledge documents, or manage ForLoop sprints |
+| **description** | Planning-only ForLoop space planner. Uses the forloop CLI for space management, story creation, file sync, and developer triggers. Never implements application code. |
+| **scope** | Space planning, requirements gathering, knowledge capture, task breakdown, story creation, plan documentation |
+| **when to use** | User asks to plan a space, create stories, capture requirements, upload plan/knowledge documents, or manage ForLoop spaces |
 | **when NOT to use** | Writing application code, building/scaffolding apps, running tests, deploying infrastructure, performing non-planning tasks |
 
 ### SKILL.md Section Outline (13 sections)
@@ -245,7 +245,7 @@ How content from existing source files maps to new Manus skill artifacts.
 | 8 | **Default Planning Workflow** | Steps 0-7 from Part A. Links to deeper references for story creation, methodology, and troubleshooting |
 | 9 | **Story Creation Rules** | Template types, agent assignment table, Creator workflow distinction |
 | 10 | **File Sync and Verification Rules** | Doc folder ensure→get→upload→verify pattern. S3 folder mapping. Upload verification requirements |
-| 11 | **Failure Handling** | Auth missing (exit 3), quota (exit 4), CLI missing, npm missing, sync failures, sprint context missing, runtime install failed. Each with specific remediation |
+| 11 | **Failure Handling** | Auth missing (exit 3), quota (exit 4), CLI missing, npm missing, sync failures, space context missing, runtime install failed. Each with specific remediation |
 | 12 | **Out-of-Scope Behavior** | What this skill MUST NOT do: code implementation, builds, scaffolds, debugging, deployment, non-planning tasks. How to redirect |
 | 13 | **References to Bundled Materials** | Quick index of `references/`, `templates/`, and `scripts/` |
 
@@ -261,10 +261,10 @@ How content from existing source files maps to new Manus skill artifacts.
 **references/** (loaded on demand):
 - `planner-role.md` — deeper philosophy, safety boundary philosophy, success definition
 - `cli-reference.md` — full command catalog with every flag and pattern
-- `forloop-methodology.md` — ForLoop way, sprint design, story sizing, knowledge capture standards
+- `forloop-methodology.md` — ForLoop way, space design, story sizing, knowledge capture standards
 - `story-patterns.md` — complete story templates, agent assignment mapping, Creator vs code pipeline
 - `validation-checklists.md` — startup checklist, before-completion checklist, upload verification
-- `troubleshooting.md` — auth, missing sprint, CLI missing, quota, sync failures, runtime install failures
+- `troubleshooting.md` — auth, missing space, CLI missing, quota, sync failures, runtime install failures
 
 **templates/** (loaded when generating output):
 - `sprint-plan-template.md` — plan document structure
@@ -292,7 +292,7 @@ How content from existing source files maps to new Manus skill artifacts.
 | `SKILL.md` | Primary | Always (first load) | Planner identity, preflight, command rules, workflow, doc folder pattern |
 | `references/planner-role.md` | Reference | On demand | Philosophy, safety boundary depth, success criteria |
 | `references/cli-reference.md` | Reference | On demand | Full command catalog, every flag, exit codes, patterns |
-| `references/forloop-methodology.md` | Reference | On demand | Sprint design, story sizing, knowledge capture standards |
+| `references/forloop-methodology.md` | Reference | On demand | Space design, story sizing, knowledge capture standards |
 | `references/story-patterns.md` | Reference | On demand | Story templates, agent assignment, Creator workflow |
 | `references/validation-checklists.md` | Reference | On demand | Checklists: startup, pre-completion, upload verification |
 | `references/troubleshooting.md` | Reference | On demand | Auth, CLI, sync, quota, runtime install failure scenarios |

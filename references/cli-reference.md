@@ -63,11 +63,11 @@ echo "$RESULT" | jq '...'
 | 4 | Quota exceeded | Tell user their tier limit is reached |
 | Other | General error | Show error message, ask user |
 
-### Sprint ID Auto-Detection
+### Space ID Auto-Detection
 
-The CLI auto-detects sprint ID from:
+The CLI auto-detects space ID from:
 1. `FORLOOP_SPRINT_ID` environment variable
-2. Git branch name pattern `sprint-N` (e.g., `sprint-14` → sprint 14)
+2. Git branch name pattern `sprint-N` (e.g., `sprint-14` → space 14)
 
 Most commands work without explicit `--sprint` or `--id`. Only pass these flags when auto-detection fails.
 
@@ -97,9 +97,9 @@ Token source: [forloop.cc/profile?tab=api-tokens](https://forloop.cc/profile?tab
 
 ---
 
-## Sprint Commands
+## Space Commands
 
-### List sprints
+### List spaces
 
 ```bash
 forloop space-sprint list --output json --non-interactive
@@ -109,7 +109,7 @@ forloop space-sprint list --include-system-org --output json --non-interactive
 
 Returns: `[{ "id": 14, "title": "...", "status": "active", "startDate": "...", "endDate": "..." }]`
 
-### Get sprint details
+### Get space details
 
 ```bash
 forloop space-sprint get --output json --non-interactive               # auto-detects
@@ -117,13 +117,13 @@ forloop space-sprint get --id 14 --output json --non-interactive       # explici
 forloop space-sprint get --id 14 --no-files --output json --non-interactive  # stories only
 ```
 
-Returns sprint object with embedded `stories` array and `files` array (by default).
+Returns space object with embedded `stories` array and `files` array (by default).
 
-### Create sprint
+### Create space
 
 ```bash
 forloop space-sprint create \
-  --title "Sprint 15: API Redesign" \
+  --title "Space 15: API Redesign" \
   --start-date 2026-06-15 \
   --end-date 2026-06-28 \
   --output json --non-interactive
@@ -136,7 +136,7 @@ forloop space-sprint create \
 
 Returns: `{ "id": 15, "title": "...", "startDate": "...", "endDate": "..." }`
 
-### Update sprint
+### Update space
 
 ```bash
 forloop space-sprint update --id 14 --title "Updated Title" --output json --non-interactive
@@ -144,7 +144,7 @@ forloop space-sprint update --id 14 --title "Updated Title" --output json --non-
 
 Partial updates: only pass flags you want to change.
 
-### Delete sprint
+### Delete space
 
 ```bash
 forloop space-sprint delete --id 14 --confirm --output json --non-interactive
@@ -156,9 +156,9 @@ forloop space-sprint delete --id 14 --confirm --output json --non-interactive
 
 ## Sub-Sprint (Iteration) Management
 
-### `sprint sub-sprint list`
+### `space-sprint sub-sprint list`
 
-List all iterations within a sprint.
+List all iterations within a space.
 
 ```bash
 forloop space-sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-interactive
@@ -166,7 +166,7 @@ forloop space-sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-
 
 | Flag | Type | Required | Description |
 |------|------|----------|-------------|
-| `--sprint-id` | number | Yes | Sprint ID |
+| `--sprint-id` | number | Yes | Space ID |
 
 **JSON output:**
 ```json
@@ -174,7 +174,7 @@ forloop space-sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-
   {
     "id": 1,
     "sprintId": 10,
-    "title": "My Sprint — Iteration 1",
+    "title": "My Space — Iteration 1",
     "startDate": "2026-08-01T00:00:00.000Z",
     "endDate": "2026-08-14T00:00:00.000Z",
     "status": "completed",
@@ -191,7 +191,7 @@ forloop space-sprint sub-sprint list --sprint-id $SPRINT_ID --output json --non-
 ]
 ```
 
-### `sprint sub-sprint create`
+### `space-sprint sub-sprint create`
 
 Create a new iteration. The previously active iteration is auto-completed.
 
@@ -206,14 +206,14 @@ forloop space-sprint sub-sprint create \
 
 | Flag | Type | Required | Description |
 |------|------|----------|-------------|
-| `--sprint-id` | number | Yes | Sprint ID |
+| `--sprint-id` | number | Yes | Space ID |
 | `--start-date` | string | Yes | Start date (YYYY-MM-DD) |
 | `--end-date` | string | Yes | End date (YYYY-MM-DD) |
 | `--title` | string | No | Iteration title (auto-generates if omitted) |
 
 **JSON output:** Single sub-sprint object (same shape as list items).
 
-### `sprint sub-sprint update`
+### `space-sprint sub-sprint update`
 
 Update an iteration title, dates, or status.
 
@@ -232,7 +232,7 @@ forloop space-sprint sub-sprint update \
 | `--end-date` | string | No | New end date |
 | `--status` | string | No | `planned`, `in_progress`, or `completed` |
 
-### `sprint sub-sprint delete`
+### `space-sprint sub-sprint delete`
 
 Soft-delete an iteration.
 
@@ -252,9 +252,9 @@ forloop space-sprint sub-sprint delete --id $SUB_SPRINT_ID --confirm \
 
 ## Story Commands
 
-### List stories (via sprint get)
+### List stories (via space-sprint get)
 
-Stories are embedded in sprint output:
+Stories are embedded in space output:
 ```bash
 forloop space-sprint get --output json --non-interactive | jq '.stories[] | {id, title, status, assigneeAgent}'
 ```
@@ -345,7 +345,7 @@ Returns: `[{ "id": 1, "name": "Basic Task", "slug": "basic-task" }, { "id": 2, "
 
 ## File Commands
 
-### List files in sprint
+### List files in space
 
 ```bash
 forloop file list --sprint 14 --output json --non-interactive
@@ -541,22 +541,22 @@ forloop sync aivy-folder --output json --non-interactive
 # 3. Sync from S3
 forloop sync s3-to-local --output json --non-interactive
 
-# 4. Load sprint context
+# 4. Load space context
 forloop space-sprint get --output json --non-interactive | jq '.stories'
 
 # 5. Check developer
 forloop agent developer-status --output json --non-interactive
 ```
 
-### Sprint creation
+### Space creation
 
 ```bash
 # 1. Check orgs
 forloop org list --output json --non-interactive | jq '.[] | {id, name}'
 
-# 2. Create sprint
+# 2. Create space
 forloop space-sprint create \
-  --title "Sprint 15" \
+  --title "Space 15" \
   --start-date 2026-07-01 \
   --end-date 2026-07-14 \
   --org-id 2 \
@@ -582,7 +582,7 @@ forloop story create \
   --assignee-agent forLoopDeveloper \
   --output json --non-interactive
 
-# 3. Verify stories in sprint
+# 3. Verify stories in space
 forloop space-sprint get --output json --non-interactive | jq '.stories[] | {id, title, status}'
 ```
 
@@ -591,7 +591,7 @@ forloop space-sprint get --output json --non-interactive | jq '.stories[] | {id,
 ```bash
 # 1. Write local file
 cat > ~/.forloop/sprint-14/plan/sprint-plan.md << 'EOF'
-# Sprint Plan
+# Space Plan
 ...
 EOF
 

@@ -1,4 +1,4 @@
-# Sprint Plan — Sprint #[ID]: [Title]
+# Space Plan — Space #[ID]: [Title]
 
 **Date:** YYYY-MM-DD
 **Organization:** [org name] (#[org-id])
@@ -7,9 +7,9 @@
 
 ---
 
-## 1. Sprint Objective
+## 1. Space Objective
 
-[One sentence that defines what success looks like for this sprint. Specific enough to measure, broad enough to encompass all stories.]
+[One sentence that defines what success looks like for this space. Specific enough to measure, broad enough to encompass all stories.]
 
 ---
 
@@ -23,7 +23,7 @@
 
 ### Out of Scope (Explicit)
 
-- [Item 1 — deferred to sprint #[id] or explicitly excluded]
+- [Item 1 — deferred to space #[id] or explicitly excluded]
 - [Item 2]
 
 ---

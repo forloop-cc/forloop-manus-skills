@@ -46,13 +46,13 @@ In a Manus conversation, activate the skill and start planning:
 ```
 /forloop-planner
 
-Let's start a new sprint to plan out my project.
+Let's start a new space to plan out my project.
 ```
 
 The skill will automatically:
 1. Run preflight checks (CLI present, auth valid)
 2. Sync context from S3
-3. Load your sprint and story data
+3. Load your space and story data
 4. Present a context summary before asking what you want to do
 
 ---
@@ -72,53 +72,53 @@ The skill always begins with environment verification and context loading. You'l
 ```
 ForLoop CLI: v1.x.x ✓
 Auth status: Authenticated ✓
-Sprint context: Sprint #14 "API Redesign" (active)
+Space context: Space #14 "API Redesign" (active)
 Stories: 3 done, 2 in progress, 5 todo
 Developer agent: IDLE
 ```
 
 If something is missing, the skill will guide you through fixing it before proceeding.
 
-### 2. Creating a New Sprint
+### 2. Creating a New Space
 
-If you don't have an active sprint, ask the skill to create one:
+If you don't have an active space, ask the skill to create one:
 
 ```
-Create a new sprint called "Sprint 1: User Dashboard" for my organization.
+Create a new space called "Space 1: User Dashboard" for my organization.
 ```
 
 The skill will:
 1. List your organizations and ask you to pick one
-2. Confirm sprint details (title, dates)
-3. Create the sprint via `forloop space-sprint create`
-4. Confirm the sprint was created successfully
+2. Confirm space details (title, dates)
+3. Create the space via `forloop space-sprint create`
+4. Confirm the space was created successfully
 
 ### 3. Gathering Requirements
 
-Once a sprint is active, start discussing what you want to build:
+Once a space is active, start discussing what you want to build:
 
 ```
 I need a dashboard with user analytics, a settings page, and an export feature.
 ```
 
 The skill will ask focused questions one at a time:
-- What is the goal of this sprint?
+- What is the goal of this space?
 - What specific metrics should the dashboard show?
 - Who are the users of these features?
 - What are the hard constraints?
 
 As you answer, the skill captures your requirements as knowledge files and uploads them to S3 automatically.
 
-### 4. Generating a Sprint Plan
+### 4. Generating a Space Plan
 
 After requirements are clear, ask for a plan:
 
 ```
-Generate a sprint plan based on our discussion.
+Generate a space plan based on our discussion.
 ```
 
 The skill produces a structured plan with:
-- Sprint objective
+- Space objective
 - Scope (in and out)
 - Deliverables with acceptance criteria
 - Story breakdown with points and agent assignments
@@ -163,7 +163,7 @@ Story #102: "Build user settings page"
 The skill handles document uploads automatically using the doc folder pattern. You can also ask explicitly:
 
 ```
-Upload the sprint plan to S3.
+Upload the space plan to S3.
 ```
 
 Behind the scenes, the skill follows **ensure → get → upload → verify**:
@@ -204,12 +204,12 @@ You can check status at any time:
 What's the developer agent doing?
 ```
 
-### 8. Checking Sprint Progress
+### 8. Checking Space Progress
 
 During or after implementation:
 
 ```
-Show me the current sprint status.
+Show me the current space status.
 ```
 
 The skill reports:
@@ -237,30 +237,30 @@ I'm your ForLoop planner. Let me check the environment first.
 
 ForLoop CLI: v1.5.2 ✓
 Auth status: Authenticated ✓
-Sprint context: No active sprint found.
+Space context: No active space found.
 
 Your organizations:
 1. "Acme Corp" (#2)
 2. "Side Project" (#5)
 
-Which organization should this sprint belong to?
+Which organization should this space belong to?
 ```
 
 **You:**
 ```
-Acme Corp. Create a new sprint for the next two weeks called "Q3 Dashboard Refresh".
+Acme Corp. Create a new space for the next two weeks called "Q3 Dashboard Refresh".
 ```
 
 **Manus:**
 ```
-Creating sprint for Acme Corp (#2)...
+Creating space for Acme Corp (#2)...
 
-Sprint created:
+Space created:
   ID: #18
   Title: "Q3 Dashboard Refresh"
   Dates: 2026-07-21 → 2026-08-04
 
-What would you like to achieve in this sprint?
+What would you like to achieve in this space?
 ```
 
 **You:**
@@ -277,7 +277,7 @@ First: who are the primary users of this dashboard, and what metrics are most im
 
 **You:**
 ```
-Internal team leads. They need to see team velocity, sprint completion rates, and story cycle times.
+Internal team leads. They need to see team velocity, space completion rates, and story cycle times.
 ```
 
 **Manus:**
@@ -287,7 +287,7 @@ Captured. Next: what data sources feed into the dashboard? Are these metrics com
 
 **You:**
 ```
-All data is in ForLoop already — sprint and story data.
+All data is in ForLoop already — space and story data.
 ```
 
 **Manus:**
@@ -314,7 +314,7 @@ Same metrics as the dashboard. Team leads download it weekly for status meetings
 ```
 I have enough to create a plan. Here's a summary before I proceed:
 
-Sprint #18 "Q3 Dashboard Refresh" — 4 deliverables:
+Space #18 "Q3 Dashboard Refresh" — 4 deliverables:
 1. Real-time analytics dashboard (Developer, 5 pts)
 2. Dark mode toggle (Developer, 2 pts)
 3. PDF report generation (Creator, 2 pts)
@@ -352,10 +352,10 @@ Yes, start implementation.
 
 **Manus:**
 ```
-Developer agent triggered for sprint #18.
+Developer agent triggered for space #18.
 Status: RUNNING
 
-You can check progress anytime by asking me "How's the sprint going?"
+You can check progress anytime by asking me "How's the space going?"
 ```
 
 ---
@@ -364,12 +364,12 @@ You can check progress anytime by asking me "How's the sprint going?"
 
 | You ask... | The skill does... |
 |-----------|------------------|
-| "Create a sprint" | Creates a sprint in your ForLoop organization |
+| "Create a space" | Creates a space in your ForLoop organization |
 | "Plan my project" | Gathers requirements, writes a plan, breaks into tasks |
 | "Create stories for this" | Creates stories with correct types, points, and agent assignments |
 | "Upload the plan to S3" | Uploads files with doc folder linking and verification |
 | "Start the developer" | Triggers the ForLoop developer agent to implement stories |
-| "What's the sprint status?" | Shows story status, developer activity, recent history |
+| "What's the space status?" | Shows story status, developer activity, recent history |
 | "Capture this as knowledge" | Writes knowledge notes and uploads to S3 |
 
 ## What the Skill Cannot Do
@@ -404,12 +404,12 @@ forloop auth login --api-key floop_xxxxx
 
 Get your token at [forloop.cc/profile?tab=api-tokens](https://forloop.cc/profile?tab=api-tokens).
 
-### "Sprint context missing"
+### "Space context missing"
 
-The skill will list your organizations and sprints. Pick one or create a new sprint:
+The skill will list your organizations and spaces. Pick one or create a new space:
 
 ```
-Create a new sprint called "My Sprint" for org #2.
+Create a new space called "My Space" for org #2.
 ```
 
 ### "Quota exceeded" (exit code 4)
@@ -417,7 +417,7 @@ Create a new sprint called "My Sprint" for org #2.
 Your ForLoop tier limit has been reached. Options:
 - Upgrade at [forloop.cc/billing](https://forloop.cc/billing)
 - Wait for monthly quota reset
-- Reduce sprint scope
+- Reduce space scope
 
 ### "jq not found"
 
@@ -448,7 +448,7 @@ forloop-manus-skill/
   references/           # Detailed content loaded on demand
     planner-role.md     # Planner philosophy and safety boundaries
     cli-reference.md    # Full forloop CLI command catalog
-    forloop-methodology.md  # Sprint design, sizing, standards
+    forloop-methodology.md  # Space design, sizing, standards
     story-patterns.md   # Story templates and agent assignment
     validation-checklists.md  # Checklists for key workflow moments
     troubleshooting.md  # Diagnosis and remediation guide

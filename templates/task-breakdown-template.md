@@ -1,4 +1,4 @@
-# Task Breakdown — Sprint #[ID]: [Title]
+# Task Breakdown — Space #[ID]: [Title]
 
 **Date:** YYYY-MM-DD
 **Based on plan:** `sprint-plan-[date].md`
@@ -109,7 +109,7 @@ Task 6 (Note — independent, can be created anytime)
 - [ ] No story exceeds 10 points
 - [ ] Agent assignments follow the assignment map
 - [ ] Creator + Developer tasks split into separate stories
-- [ ] Total points within sprint capacity
+- [ ] Total points within space capacity
 - [ ] User approved the breakdown before story creation
 
 ---

@@ -159,7 +159,7 @@ Then summarize:
 3. whether any token leakage appeared in output.
 ```
 
-### Prompt 2.3 — Read-Only Org and Sprint Checks
+### Prompt 2.3 — Read-Only Org and Space Checks
 
 ```text
 Use /forloop-planner.
@@ -171,7 +171,7 @@ Please run:
 2. forloop space-sprint list --output json --non-interactive
 3. forloop space-sprint get --output json --non-interactive
 
-If sprint auto-detection fails, explain that clearly and use an explicit sprint id only after asking me.
+If space auto-detection fails, explain that clearly and use an explicit space id only after asking me.
 
 For each command, report:
 1. whether it succeeded,
@@ -201,8 +201,8 @@ Then tell me:
 - login succeeds safely
 - auth status is recognized correctly
 - org list works
-- sprint list works
-- sprint get works or fails cleanly due to missing sprint context
+- space list works
+- space get works or fails cleanly due to missing space context
 - all commands still use `--output json` and `--non-interactive` where appropriate
 
 If Session 2 fails, do not proceed to mutation checks.

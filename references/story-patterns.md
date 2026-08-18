@@ -187,7 +187,7 @@ Creator ──→ (auto-commit) ──→ (auto-deploy via CI/CD)
 
 ## Story Sequencing Guidelines
 
-### Within a Sprint
+### Within a Space
 
 1. **Infrastructure first.** DevOps stories that provision or configure resources should come before implementation stories that depend on them.
 
@@ -218,7 +218,7 @@ Before creating a story, verify:
 - [ ] Points estimated (Fibonacci: 1, 2, 3, 5, 8; split if > 10)
 - [ ] Description includes Goal, Scope, and Acceptance Criteria
 - [ ] Dependencies documented (links to prerequisite stories)
-- [ ] Sprint context matches (CLI auto-detects or explicit `--sprint`)
+- [ ] Space context matches (CLI auto-detects or explicit `--sprint`)
 - [ ] Doc folder exists before story creation
 - [ ] User has approved the story before creation
 

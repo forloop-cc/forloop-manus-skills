@@ -9,7 +9,7 @@ Diagnosis and remediation for common failure scenarios. Load this when a CLI com
 3. [Runtime Install Failed](#runtime-install-failed)
 4. [Missing Node.js or npm](#missing-nodejs-or-npm)
 5. [Quota Errors](#quota-errors)
-6. [Sprint Context Missing](#sprint-context-missing)
+6. [Space Context Missing](#space-context-missing)
 7. [Sync Failures](#sync-failures)
 8. [Exit Code Reference](#exit-code-reference)
 
@@ -155,26 +155,26 @@ forloop user quotas --output json --non-interactive
 **Remediation options:**
 1. **Upgrade tier** at [forloop.cc/billing](https://forloop.cc/billing)
 2. **Wait for quota reset** (monthly on billing cycle)
-3. **Reduce scope** — fewer stories, smaller sprint
+3. **Reduce scope** — fewer stories, smaller space
 
 **Important:** Do not try to work around quota limits. If the user cannot create stories or upload files due to quota, planning can continue in guidance-only mode, but CLI mutation commands will fail.
 
 ---
 
-## Sprint Context Missing
+## Space Context Missing
 
-### Symptom: No `~/.forloop/manifest.json` or manifest has no active sprint
+### Symptom: No `~/.forloop/manifest.json` or manifest has no active space
 
-**Step 1: List available orgs and sprints**
+**Step 1: List available orgs and spaces**
 ```bash
 forloop org list --output json --non-interactive
 forloop space-sprint list --output json --non-interactive
 ```
 
-**Step 2: If org exists but no sprint, create one**
+**Step 2: If org exists but no space, create one**
 ```bash
 forloop space-sprint create \
-  --title "Sprint N" \
+  --title "Space N" \
   --start-date YYYY-MM-DD \
   --end-date YYYY-MM-DD \
   --org-id N \
@@ -188,7 +188,7 @@ forloop org create --name "My Organization" --output json --non-interactive
 
 Or create via the web app at [forloop.cc/organizations](https://forloop.cc/organizations).
 
-### Symptom: Sprint ID auto-detection fails
+### Symptom: Space ID auto-detection fails
 
 Auto-detection works via `FORLOOP_SPRINT_ID` env var or git branch name (`sprint-14`).
 
@@ -198,9 +198,9 @@ forloop space-sprint get --id 14 --output json --non-interactive
 forloop space-sprint get --sprint 14 --output json --non-interactive
 ```
 
-### Symptom: Sprint exists but commands fail with "sprint not found"
+### Symptom: Space exists but commands fail with "space not found"
 
-The sprint may have been deleted or the user may not have access. Verify:
+The space may have been deleted or the user may not have access. Verify:
 ```bash
 forloop space-sprint list --output json --non-interactive | jq '.[] | {id, title, status}'
 ```
@@ -216,7 +216,7 @@ forloop space-sprint list --output json --non-interactive | jq '.[] | {id, title
 forloop auth status
 ```
 
-**Check sprint context:**
+**Check space context:**
 ```bash
 forloop space-sprint get --output json --non-interactive | jq '{id, title}'
 ```
@@ -229,16 +229,16 @@ forloop sync aivy-folder --sprint 14 --title "Aivy Plan Doc" --output json --non
 ### Symptom: `forloop sync s3-to-local` fails or returns empty
 
 **Possible causes:**
-1. No files exist in S3 for this sprint yet (expected for new sprints)
+1. No files exist in S3 for this space yet (expected for new spaces)
 2. Auth token doesn't have read scope
-3. Sprint ID is wrong
+3. Space ID is wrong
 
 **Check:**
 ```bash
 forloop file list --sprint 14 --output json --non-interactive
 ```
 
-If no files are listed, there's nothing to sync — this is normal for new sprints.
+If no files are listed, there's nothing to sync — this is normal for new spaces.
 
 ### Symptom: `forloop sync aivy-doc-get` returns null or empty docFolderId
 
@@ -262,7 +262,7 @@ If the file doesn't exist, write it first before uploading.
 
 ### Symptom: Upload succeeded but file doesn't appear in `forloop file list`
 
-1. Check if you're looking at the right sprint: `--sprint N`
+1. Check if you're looking at the right space: `--sprint N`
 2. S3 may have eventual consistency — wait a moment and retry
 3. Check the upload exit code — it may have returned 0 but the upload failed silently
 
@@ -277,7 +277,7 @@ If the file doesn't exist, write it first before uploading.
 | 2 | Invalid arguments | Check command syntax, flag names, required flags |
 | 3 | Not authenticated | User must run `forloop auth login --api-key floop_xxxxx` |
 | 4 | Quota exceeded | User must upgrade tier or wait for reset |
-| 5 | Not found | Sprint, story, or file doesn't exist — check IDs |
+| 5 | Not found | Space, story, or file doesn't exist — check IDs |
 | 6 | Permission denied | User doesn't have access to this resource |
 | 7 | Validation error | Input data doesn't meet requirements |
 | 8+ | Internal/server error | Retry; if persistent, check ForLoop status or contact support |
@@ -317,11 +317,11 @@ Command fails
   │
   ├─ Auth status check
   │   ├─ "Not authenticated" → forloop auth login
-  │   └─ Authenticated → check sprint context
+  │   └─ Authenticated → check space context
   │
-  ├─ Sprint context?
-  │   ├─ No manifest → list orgs/sprints, user selects
-  │   ├─ Wrong sprint → fix with --sprint N
+  ├─ Space context?
+  │   ├─ No manifest → list orgs/spaces, user selects
+  │   ├─ Wrong space → fix with --sprint N
   │   └─ Correct → retry command
   │
   └─ Still failing after all checks?
@@ -337,7 +337,7 @@ Run these before starting work to catch common issues early:
 
 - [ ] `forloop --version` returns a version (CLI is installed)
 - [ ] `forloop auth status` does not say "Not authenticated"
-- [ ] `forloop space-sprint get --output json --non-interactive` returns sprint data (sprint context exists)
+- [ ] `forloop space-sprint get --output json --non-interactive` returns space data (space context exists)
 - [ ] `forloop user quotas --output json --non-interactive` shows available quota (not at limit)
 - [ ] `jq --version` returns a version (JSON parser available)
 - [ ] `~/.forloop/` directory exists and is writable

@@ -26,22 +26,22 @@ Run after passing the runtime install check. All items in order.
 
 ### Context Loading
 - [ ] `~/.forloop/manifest.json` read and parsed
-- [ ] Active sprint ID identified
+- [ ] Active space ID identified
 - [ ] Doc folder ensured: `forloop sync aivy-folder --output json --non-interactive`
 - [ ] Doc folder ID retrieved: `DOC_ID=$(forloop sync aivy-doc-get ... | jq -r '.docFolderId')`
 - [ ] S3 synced: `forloop sync s3-to-local --output json --non-interactive`
 - [ ] Local files reloaded from `plan/`, `knowledge/`, `task/`
 - [ ] `knowledge-application.md` read (if exists)
 
-### Sprint Context
-- [ ] `forloop space-sprint get` returned sprint details
+### Space Context
+- [ ] `forloop space-sprint get` returned space details
 - [ ] Stories loaded: `jq '.stories[] | {id, title, status, assigneeAgent}'`
 - [ ] Developer status checked: `forloop agent developer-status`
 - [ ] Conversation history loaded: `forloop agent history --limit 50`
 
 ### User Confirmation
 - [ ] Context summary presented to user
-- [ ] Active sprint confirmed by user
+- [ ] Active space confirmed by user
 - [ ] User is aware of any running developer agent
 
 ---
@@ -119,15 +119,15 @@ Run before telling the user the planning session is complete.
 - [ ] No story > 10 points (split if found)
 - [ ] User confirmed the story list
 
-### Sprint Health
+### Space Health
 - [ ] Total points ≤ estimated capacity
 - [ ] Story statuses are all `todo` (before implementation trigger)
-- [ ] No orphaned stories (stories with no clear sprint context)
+- [ ] No orphaned stories (stories with no clear space context)
 
 ### Handoff
 - [ ] User knows how to trigger implementation: `forloop agent developer-sprint`
 - [ ] User knows how to check status: `forloop agent developer-status`
-- [ ] Session summary includes: sprint link, story count, total points, key decisions
+- [ ] Session summary includes: space link, story count, total points, key decisions
 
 ### Clean Closure
 - [ ] No pending questions for the user
@@ -146,7 +146,7 @@ Run before telling the user the planning session is complete.
 | "Story created" | Output of `forloop space-sprint get | jq '.stories[]'` showing the new story |
 | "File uploaded" | Output of `forloop file list | jq '.[].originalName'` showing the file |
 | "Auth works" | Output of `forloop auth status` showing authenticated |
-| "Sprint exists" | Output of `forloop space-sprint get` showing sprint details |
+| "Space exists" | Output of `forloop space-sprint get` showing space details |
 | "Developer triggered" | Output of `forloop agent developer-status` showing RUNNING |
 
 **Wrong:** "The file has been uploaded to S3."
@@ -163,9 +163,9 @@ These are hard gates — do not proceed past them until fully checked:
 ### Gate 1: Planning can begin
 - [ ] Runtime install checklist passed
 
-### Gate 2: Sprint context is established
+### Gate 2: Space context is established
 - [ ] Session startup checklist passed
-- [ ] Sprint confirmed with user
+- [ ] Space confirmed with user
 
 ### Gate 3: Stories can be created
 - [ ] Plan approved by user

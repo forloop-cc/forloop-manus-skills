@@ -1,6 +1,6 @@
 # ForLoop Methodology: Planning Way, Sizing, and Standards
 
-This reference covers the ForLoop planning philosophy, sprint design principles, story sizing rules, knowledge capture standards, and plan quality expectations. Load this when you need methodology depth beyond the workflow in `SKILL.md`.
+This reference covers the ForLoop planning philosophy, space design principles, story sizing rules, knowledge capture standards, and plan quality expectations. Load this when you need methodology depth beyond the workflow in `SKILL.md`.
 
 ## The ForLoop Way
 
@@ -28,13 +28,13 @@ As the planner, you own the **Plan** phase. The AI agents (Developer, Tester, De
 
 4. **Agents have specialties.** Assign work to the right agent. Don't give infrastructure tasks to the Developer. Don't give testing tasks to DevOps.
 
-## Sprint Design Principles
+## Space Design Principles
 
-### Sprint Structure
+### Space Structure
 
-A well-designed sprint has:
+A well-designed space has:
 
-- **Clear objective** — one sentence that explains what this sprint achieves
+- **Clear objective** — one sentence that explains what this space achieves
 - **Defined scope** — what is in and what is explicitly out
 - **Realistic capacity** — not more work than can be completed in the timeframe
 - **Measurable outcomes** — stories with acceptance criteria that can be verified
@@ -50,22 +50,22 @@ Use these multipliers to estimate realistic capacity:
 | Standard | 80% of available time | Established team, moderate clarity |
 | Aggressive | 100% of available time | Experienced team, very clear requirements, low risk |
 
-Available time = sprint duration × available agents
+Available time = space duration × available agents
 
-**Example:** 2-week sprint, 3 agents (Developer, Tester, Devops), standard strategy:
+**Example:** 2-week space, 3 agents (Developer, Tester, Devops), standard strategy:
 - Total agent-weeks: 6
 - Standard capacity: 6 × 0.8 = 4.8 agent-weeks
 - If average story is 3 points ≈ 1 agent-day, then ~24 points total
 
-### Sprint Planning Anti-Patterns
+### Space Planning Anti-Patterns
 
 | Anti-Pattern | Problem | Fix |
 |-------------|---------|-----|
-| No sprint objective | Team doesn't know what success looks like | Write one clear sentence first |
-| Overfilled sprint | Stories won't be completed, morale drops | Use capacity multipliers |
-| All high-priority stories | If everything is critical, nothing is | Max 30% high/critical per sprint |
+| No space objective | Team doesn't know what success looks like | Write one clear sentence first |
+| Overfilled space | Stories won't be completed, morale drops | Use capacity multipliers |
+| All high-priority stories | If everything is critical, nothing is | Max 30% high/critical per space |
 | No dependencies documented | Stories created in wrong order, blocked | Document prerequisite stories |
-| Copy-paste from last sprint | Context changes, carryover should be intentional | Review and re-estimate carried stories |
+| Copy-paste from last space | Context changes, carryover should be intentional | Review and re-estimate carried stories |
 | Too many small stories (1pt) | Overhead of task management exceeds work | Group related 1pt stories into 2-3pt stories |
 | One giant story (10+ pts) | No clear completion point, hard to track | Split into smaller deliverable stories |
 
@@ -157,7 +157,7 @@ During requirements gathering, capture:
 # [Topic] — Knowledge Capture
 
 **Date:** YYYY-MM-DD
-**Sprint:** #[id] [title]
+**Space:** #[id] [title]
 **Source:** Requirements gathering session
 
 ## Context
@@ -222,17 +222,17 @@ Capture knowledge whenever:
 
 ### Plan Structure
 
-Every sprint plan should follow this structure:
+Every space plan should follow this structure:
 
 ```markdown
-# Sprint Plan — Sprint #[id]: [Title]
+# Space Plan — Space #[id]: [Title]
 
 **Date:** YYYY-MM-DD
 **Organization:** [org name] (#[id])
 **Duration:** [start] → [end]
 
-## 1. Sprint Objective
-[One sentence: what success looks like for this sprint]
+## 1. Space Objective
+[One sentence: what success looks like for this space]
 
 ## 2. Scope
 
@@ -241,7 +241,7 @@ Every sprint plan should follow this structure:
 - ...
 
 ### Out of Scope (Explicit)
-- [Item 1] — deferred to sprint #[id]
+- [Item 1] — deferred to space #[id]
 - ...
 
 ## 3. Deliverables
@@ -298,7 +298,7 @@ Every sprint plan should follow this structure:
 ### Plan Quality Checklist
 
 A plan is ready for story creation when:
-- [ ] Sprint objective is one clear sentence
+- [ ] Space objective is one clear sentence
 - [ ] Scope boundaries are explicit (in and out)
 - [ ] Every deliverable has acceptance criteria
 - [ ] Total points fit within estimated capacity
@@ -312,10 +312,10 @@ A plan is ready for story creation when:
 | Bad Plan Smell | Fix |
 |---------------|-----|
 | Objectives section is empty or generic | Write a specific, measurable objective |
-| No "Out of Scope" section | Explicitly list what's NOT in this sprint |
+| No "Out of Scope" section | Explicitly list what's NOT in this space |
 | Stories have no points | Estimate every story |
 | No dependencies documented | Map prerequisite relationships |
-| Total points > capacity × 2 | Reduce scope or split into multiple sprints |
+| Total points > capacity × 2 | Reduce scope or split into multiple spaces |
 | All stories are the same size | Real work varies; 3s and 5s should dominate |
 | No acceptance criteria | Add testable criteria for each deliverable |
 

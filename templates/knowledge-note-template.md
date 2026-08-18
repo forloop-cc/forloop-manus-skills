@@ -1,7 +1,7 @@
 # [Topic] — Knowledge Capture
 
 **Date:** YYYY-MM-DD
-**Sprint:** #[ID] [Title]
+**Space:** #[ID] [Title]
 **Source:** Requirements gathering / Design discussion / User feedback / Research
 
 ---
